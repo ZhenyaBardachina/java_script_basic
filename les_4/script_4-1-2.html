@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>kubikov_4-1-2</title>
+</head>
+<body>
+	<script type="text/javascript">
+		'use strict';
+		// Сделайте в стиле es5, а затем в стиле es6 а) конструктор Post, который принимает параметры author, text, date и сохраняет их как свойства объекта. Объекты типа Post должны иметь метод edit, который будет принимать текст и записывать его в свойство text объекта. б) конструктор AttachedPost, который принимает параметры author, text, date. Проинициализируйте эти свойства с помощью конструктора Post, чтобы не дублировать код. Также в конструкторе AttachedPost должно создаваться свойство highlighted со значением false. Унаследуйте в объектах типа AttachedPost методы из Post. Объекты типа AttachedPost должны иметь метод makeTextHighlighted, который будет назначать свойству
+		// highlighted значение true.
+
+		// es5
+		function PostES5(author, text, date) {
+			this.author = author;
+			this.text = text;
+			this.date = date;
+		}
+		PostES5.prototype.edit = function(text) {
+			this.text = text;
+		}
+
+
+		function AttachedPostES5(author, text, date, highlighted) {
+			PostES5.call(this, author, text, date);
+			this.highlighted = false;
+		}
+
+		AttachedPostES5.prototype = Object.create(PostES5.prototype);
+		AttachedPostES5.prototype.constructor = AttachedPostES5;
+
+		AttachedPostES5.prototype.makeTextHighlighted = function() {
+			return this.highlighted = true;
+		}
+
+		let date = new Date();
+		let post = new PostES5('Jane Doe 1', 'some text Jane Doe 1', date);
+		console.log(post);
+		post.edit('some else text Jane Doe 1');
+		console.log(post);
+
+
+		let attachedPost = new AttachedPostES5('John Doe 1', 'some text from John Doe 1', date);
+		console.log(attachedPost);
+		attachedPost.edit('some else text from John Doe 1');
+		attachedPost.makeTextHighlighted();
+		console.log(attachedPost);
+
+
+		// es6
+		class PostES6 {
+			constructor(author, text, date) {
+				this.author = author;
+				this.text = text;
+				this.date = date;
+			}
+
+			edit (text) {
+				this.text = text;
+			}
+		};
+
+		class AttachedPostES6 extends PostES6 {
+			constructor(author, text, date, highlighted) {
+				super(author, text, date);
+				this.highlighted = false;
+			}
+
+			makeTextHighlighted() {
+				return this.highlighted = true;
+			}
+		};
+
+		
+		let postES6 = new PostES6('Jane Doe 2', 'some text Jane Doe 2', date);
+		console.log(postES6);
+		postES6.edit('some else text Jane Doe 2');
+		console.log(postES6);
+
+
+		let attachedPostES6 = new AttachedPostES6('John Doe 2', 'some text from John Doe 2', date);
+		console.log(attachedPostES6);
+		attachedPostES6.edit('some else text from John Doe 2');
+		attachedPostES6.makeTextHighlighted();
+		console.log(attachedPostES6);
+
+
+	</script>
+</body>
+</html>

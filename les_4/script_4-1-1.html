@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>kubikov_4-1-1</title>
+</head>
+<body>
+	<script type="text/javascript">
+		'use strict';
+		// Сделайте в стиле es5, а затем в стиле es6 конструктор Product, который принимает параметры name  и price, сохраните их как свойства объекта. Также объекты типа Product должны иметь метод make25PercentDiscount, который будет уменьшать цену в объекте на 25%. 
+
+		// es5
+		function ProductES5(name, price) {
+			this.name = name;
+			this.price = price;
+		}
+
+		ProductES5.prototype.make25PercentDiscount = function() {
+			return (this.price - this.price / 100 * 25);
+		}
+		
+
+		let orange = new ProductES5('orange', 100);
+		console.log(orange.name);
+		console.log(orange.price);
+		console.log(orange.make25PercentDiscount());
+
+
+		// es5
+		class ProductES6 {
+			constructor(name, price) {
+				this.name = name;
+				this.price = price;
+			}
+
+			make25PercentDiscount() {
+				return (this.price - this.price / 100 * 25);
+			}
+		}
+
+		let pear = new ProductES6('pear', 1000);
+		console.log(pear.name);
+		console.log(pear.price);
+		console.log(pear.make25PercentDiscount());
+
+	</script>
+</body>
+</html>
